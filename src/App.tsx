@@ -99,7 +99,7 @@ const App: FC<AppProps> = () => {
         </div>
       </main>
       <footer>
-        <li>Created by Apisit Ritreungroj &copy; {new Date().getFullYear()}. Lab IV for CPE207, React with TypeScript</li>
+        <li>Created by Apisit Ritreungroj &copy; {new Date().getFullYear()}. Lab V for CPE207, React with TypeScript</li>
       </footer>
     </>
   );

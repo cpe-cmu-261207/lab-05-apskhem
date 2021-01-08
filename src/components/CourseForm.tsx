@@ -92,12 +92,12 @@ const CourseForm: FC<CourseFormProps> = (props) => {
 
   // render grade bar
   const renderGradeList = (): JSX.Element[] => {
-    return GRADES.map((gradePair) => {
-      const fn = () => dispatch({ type: "change grade", value: gradePair.name });
-      const c1 = gradePair.name.replace("+", "p").toLowerCase() + "-icon";
-      const c2 = gradePair.name === courseInputData.grade ? " sel" : "";
+    return GRADES.map((gradeEntry) => {
+      const fn = () => dispatch({ type: "change grade", value: gradeEntry.name });
+      const c1 = gradeEntry.name.replace("+", "p").toLowerCase() + "-icon";
+      const c2 = gradeEntry.name === courseInputData.grade ? " sel" : "";
 
-      return <div key={gradePair.name} className={c1 + c2} onClick={fn}>{gradePair.name}</div>;
+      return <div key={gradeEntry.name} className={c1 + c2} onClick={fn}>{gradeEntry.name}</div>;
     });
   }
 
