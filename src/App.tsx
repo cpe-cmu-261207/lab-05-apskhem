@@ -34,7 +34,7 @@ const App: FC<AppProps> = () => {
   }, [courseList.length]);
 
   // utils: parse string grade to number grade
-  const praseStringGrade = (grade: Grade) => GRADES.find((gradePair) => gradePair.name === grade)?.value ?? null;
+  const parseStringGrade = (grade: Grade) => GRADES.find((gradeEntry) => gradeEntry.name === grade)?.value ?? null;
 
   // calculate gpa and return gpa
   const calculateGPA = () => {
@@ -42,7 +42,7 @@ const App: FC<AppProps> = () => {
     let sumWeight = 0;
 
     for (const course of courseList) {
-      const numGrade = praseStringGrade(course.grade);
+      const numGrade = parseStringGrade(course.grade);
       if (numGrade === null) continue;
 
       weight += course.credit;
@@ -53,7 +53,7 @@ const App: FC<AppProps> = () => {
   }
 
   // calculate weight of all courses in the list
-  const calculateWeight = () => courseList.reduce((acc, list) => acc += list.credit, 0);
+  const calculateWeight = () => courseList.reduce((acc, course) => acc += course.credit, 0);
 
   // add course on submit
   const addCourse = (...courseInputData: RegularCourseForm[]) => setCourseList([...courseList, ...courseInputData]);
