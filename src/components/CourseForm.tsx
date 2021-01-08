@@ -19,6 +19,8 @@ type FormAction =
 // main function component
 const CourseForm: FC<CourseFormProps> = (props) => {
 
+  const course = useContext(CourseContext);
+
   const courseInputDataInitial: RegularCourseForm = {
     id: "",
     name: "",
@@ -42,8 +44,6 @@ const CourseForm: FC<CourseFormProps> = (props) => {
         throw new Error("There is no matched action in reducer");
     }
   }, courseInputDataInitial);
-
-  const course = useContext(CourseContext);
 
   // event handler for setting course id
   const setCourseIdHandler = (e: React.ChangeEvent<HTMLInputElement>) => dispatch({ type: "change id", value: e.target.value });

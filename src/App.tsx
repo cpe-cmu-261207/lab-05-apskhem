@@ -12,6 +12,8 @@ interface CourseContextValue {
 
 export const CourseContext = createContext<CourseContextValue>({ courseList: [] });
 
+let firstCome = false;
+
 // main function component
 const App: FC<AppProps> = () => {
 
@@ -20,11 +22,23 @@ const App: FC<AppProps> = () => {
 
   // on mount
   useEffect(() => {
-    console.log("first mount!");
-  }, []);
+    if (!firstCome) {
+      const rawData = localStorage.getItem("courseList");
+      if (!rawData) return;
+      
+      const refinedData = JSON.parse(rawData);
+  
+      setCourseList(refinedData);
+
+      firstCome = true;
+    }
+    else {
+      localStorage.setItem("courseList", JSON.stringify(courseList));
+    }
+  }, [courseList.length]);
 
   // utils: parse string grade to number grade
-  const praseStringGrade = (grade: Grade) => GRADES.find((gradePair) => gradePair.name === grade)?.value
+  const praseStringGrade = (grade: Grade) => GRADES.find((gradePair) => gradePair.name === grade)?.value ?? null;
 
   // calculate gpa and return gpa
   const calculateGPA = () => {
@@ -33,7 +47,7 @@ const App: FC<AppProps> = () => {
 
     for (const course of courseList) {
       const numGrade = praseStringGrade(course.grade);
-      if (!numGrade) continue;
+      if (numGrade === null) continue;
 
       weight += course.credit;
       sumWeight += course.credit * numGrade;
