@@ -35,4 +35,4 @@ export const GRADES = [
     name: "W",
     value: null,
   },
-];
+] as { name: Grade, value: number | null }[];
