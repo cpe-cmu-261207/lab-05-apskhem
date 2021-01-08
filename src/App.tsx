@@ -12,8 +12,6 @@ interface CourseContextValue {
 
 export const CourseContext = createContext<CourseContextValue>({ courseList: [] });
 
-let firstCome = false;
-
 // main function component
 const App: FC<AppProps> = () => {
 
@@ -22,19 +20,17 @@ const App: FC<AppProps> = () => {
 
   // on mount
   useEffect(() => {
-    if (!firstCome) {
-      const rawData = localStorage.getItem("courseList");
-      if (!rawData) return;
-      
-      const refinedData = JSON.parse(rawData);
-  
-      setCourseList(refinedData);
+    const rawData = localStorage.getItem("courseList");
+    if (!rawData) return;
+    
+    const refinedData = JSON.parse(rawData);
 
-      firstCome = true;
-    }
-    else {
-      localStorage.setItem("courseList", JSON.stringify(courseList));
-    }
+    setCourseList(refinedData);
+  }, []);
+
+  // save on course update
+  useEffect(() => {
+    localStorage.setItem("courseList", JSON.stringify(courseList));
   }, [courseList.length]);
 
   // utils: parse string grade to number grade
